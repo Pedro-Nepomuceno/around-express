@@ -2,6 +2,8 @@ const express = require('express');
 
 const helmet = require('helmet');
 
+const mongoose = require('mongoose');
+
 const userRouter = require('./routes/users');
 
 const cards = require('./routes/cards');
@@ -9,6 +11,12 @@ const cards = require('./routes/cards');
 const app = express();
 
 app.use(helmet());
+
+mongoose.connect('mongodb://localhost:27017/aroundb', {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
 
 app.use('/', userRouter);
 app.use('/', cards);
