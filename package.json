@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Pedro-Nepomuceno/around-express#readme",
   "devDependencies": {
     "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
     "nodemon": "^2.0.19"
   },
   "dependencies": {
