@@ -4,24 +4,26 @@ const helmet = require('helmet');
 
 const mongoose = require('mongoose');
 
-const userRouter = require('./routes/users');
-
-const cards = require('./routes/cards');
-
 const app = express();
+
+const routes = require('./routes');
 
 app.use(helmet());
 
 mongoose.connect('mongodb://localhost:27017/aroundb', {
   useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
 });
 
-app.use('/', userRouter);
-app.use('/', cards);
-app.use('*', (req, res) => {
-  res.status(404).send({ message: 'Requested resource not found' });
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(routes);
+app.use((req, res, next) => {
+  req.user = {
+    _id: '62eb1c3776522b537616eff9',
+  };
+
+  next();
 });
 
 const { PORT = 3000 } = process.env;
